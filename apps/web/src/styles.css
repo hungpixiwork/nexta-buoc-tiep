@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/*
+ * NEXTA design tokens — "Humanitarian light": calm, legible, trustworthy.
+ * Every text/background pair used for text meets WCAG AAA (≥ 7:1).
+ * No glassmorphism, no blur. Status is always colour + icon + words.
+ */
+@theme {
+  --font-sans: "Be Vietnam Pro", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #f8fafc;
+  --color-surface: #ffffff;
+  --color-sunken: #f1f5f9;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+
+  --color-ink: #0f172a;
+  --color-ink-2: #1e293b;
+  --color-muted: #475569;
+
+  --color-brand: #075985;
+  --color-brand-strong: #0c4a6e;
+  --color-brand-soft: #f0f9ff;
+  --color-brand-line: #bae6fd;
+
+  --color-step: #047857;
+  --color-step-strong: #065f46;
+  --color-step-soft: #ecfdf5;
+  --color-step-line: #a7f3d0;
+
+  --color-warn: #b45309;
+  --color-warn-soft: #fffbeb;
+  --color-warn-line: #fde68a;
+
+  --color-danger: #b91c1c;
+  --color-danger-strong: #991b1b;
+  --color-danger-soft: #fef2f2;
+  --color-danger-line: #fecaca;
+
+  --color-ai: #6d28d9;
+  --color-ai-soft: #f5f3ff;
+  --color-ai-line: #ddd6fe;
+
+  --radius-card: 16px;
+  --radius-tile: 12px;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04);
+  --shadow-raised: 0 4px 12px -4px rgb(15 23 42 / 0.1);
+  --shadow-float: 0 -4px 16px -6px rgb(15 23 42 / 0.08);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 128px;
+  }
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Tactile press feedback for tappable surfaces (super-app feel) */
+@utility press {
+  transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@utility safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Curved brand header band used by home screens */
+@utility hero-band {
+  background-color: var(--color-brand-strong);
+  background-image: radial-gradient(90% 120% at 100% 0%, var(--color-brand) 0%, var(--color-brand-strong) 100%);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

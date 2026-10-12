@@ -1,0 +1,25 @@
+{
+  "name": "@buoc-tiep/database",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply buoc-tiep-db --local --config ../api/wrangler.jsonc",
+    "db:seed:local": "wrangler d1 execute buoc-tiep-db --local --file=./seed.sql --config ../api/wrangler.jsonc",
+    "db:migrate:prod": "wrangler d1 migrations apply buoc-tiep-db --remote --config ../api/wrangler.jsonc",
+    "db:seed:directory:local": "wrangler d1 execute buoc-tiep-db --local --file=./loop/seed_directory.sql --config ../api/wrangler.jsonc",
+    "db:seed:directory:remote": "wrangler d1 execute buoc-tiep-db --remote --file=./loop/seed_directory.sql --config ../api/wrangler.jsonc"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240529.0",
+    "drizzle-kit": "^0.31.10",
+    "typescript": "^5.4.5",
+    "wrangler": "^4.123.0"
+  }
+}

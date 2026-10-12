@@ -1,0 +1,76 @@
+name: Cloudflare CD Deploy Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy-cloudflare:
+    name: Deploy to Cloudflare Platform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Verify Quality Gates Pre-Deploy
+        run: npm run typecheck --workspaces --if-present
+
+      # Không deploy production khi test đỏ
+      - name: Test Pre-Deploy
+        run: npm test
+
+      # 1. Deploy Worker API (includes Hono API, D1 binding, KV, R2, Vectorize)
+      - name: Deploy Worker API
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.123.0'
+          workingDirectory: 'packages/api'
+          command: 'deploy'
+          # Đăng nhập Zalo Mini App: server xác minh access token bằng App Secret.
+          secrets: |
+            ZALO_APP_SECRET
+        env:
+          ZALO_APP_SECRET: ${{ secrets.ZALO_APP_SECRET }}
+
+      - name: Build Web App
+        run: npm run build --workspace=apps/web
+
+      - name: Deploy Web App to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.123.0'
+          workingDirectory: 'apps/web'
+          command: 'pages deploy dist --project-name=buoc-tiep-web'
+
+      - name: Export Mobile Web App (Expo)
+        run: npx expo export -p web
+        working-directory: apps/app
+
+      - name: Deploy Mobile Web App to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.123.0'
+          workingDirectory: 'apps/app'
+          command: 'pages deploy dist --project-name=buoc-tiep-app'
+
+

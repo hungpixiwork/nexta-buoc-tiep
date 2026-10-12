@@ -1,0 +1,43 @@
+name: Monorepo CI Pipeline
+
+# BƯỚC TIẾP (NEXTA) — UNESCO Youth Hackathon 2026
+# Quality Gate order:
+#   install -> typecheck -> test -> build
+# Package manager: npm (root package-lock.json SSOT)
+# Test dùng D1 giả bằng node:sqlite (Node 22.13+), chạy thật mọi migration.
+
+on:
+  push:
+    branches: [master, main, develop]
+  pull_request:
+    branches: [master, main, develop]
+
+jobs:
+  quality-gates:
+    name: Monorepo CI Quality Gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # 1. Install Dependencies (npm ci, root lockfile SSOT)
+      - name: Install Dependencies
+        run: npm ci
+
+      # 2. Typecheck
+      - name: TypeScript Typecheck
+        run: npm run typecheck --workspaces --if-present
+
+      # 3. Test (luật an toàn, quyền truy cập, schema D1)
+      - name: Test
+        run: npm test
+
+      # 4. Monorepo Build
+      - name: Build All Workspaces
+        run: npm run build --workspaces --if-present

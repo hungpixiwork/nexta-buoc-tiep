@@ -1,0 +1,408 @@
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #0f172a;
+  background-color: #edf3fb;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #edf3fb;
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Responsive Table Wrapper - Chống tràn layout ngang */
+.table-responsive-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
+
+/* Modal Overlay & Centering - Không dùng glassmorphism mờ */
+.modal-backdrop-solid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Base utility classes for TailAdmin Light Theme - 0% Glassmorphism */
+.card-flat {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+
+/* Status Badges - WCAG AAA High Contrast */
+.badge-saffron {
+  background-color: #fffbe9;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-navy {
+  background-color: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-forest {
+  background-color: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-danger {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+/* 6-State Referral Badges */
+.badge-draft {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-submitted {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-verified {
+  background-color: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-referred {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+  border: 1px solid #d8b4fe;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-accepted {
+  background-color: #d1fae5;
+  color: #047857;
+  border: 1px solid #6ee7b7;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-completed {
+  background-color: #bbf7d0;
+  color: #14532d;
+  border: 1px solid #4ade80;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.badge-cancelled {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.btn-primary {
+  background-color: #d97706;
+  color: #ffffff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: #b45309;
+}
+
+.btn-navy {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-navy:hover {
+  background-color: #1e40af;
+}
+
+.btn-outline {
+  background-color: #ffffff;
+  color: #1e3a8a;
+  font-weight: 700;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-outline:hover {
+  background-color: #f8fafc;
+}
+
+/* Voice wave bars styling */
+.wave-bar {
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  background-color: #d97706;
+  border-radius: 2px;
+  animation: wave-animation 1s ease-in-out infinite alternate;
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: scaleY(0.2);
+  }
+  100% {
+    transform: scaleY(1.5);
+  }
+}
+
+/* Print styles for Mẫu số 07 (NĐ 20/2021/NĐ-CP) and A4 documents */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  div[style*="position: fixed"] {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  .printable-form07-wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .printable-form07 {
+    padding: 0 !important;
+    font-family: 'Times New Roman', Times, serif, sans-serif !important;
+    font-size: 13pt !important;
+    line-height: 1.5 !important;
+    color: #000000 !important;
+    background: #ffffff !important;
+  }
+
+  .watermark-print {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  table {
+    page-break-inside: avoid;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+}
+
+
+/* Print styles for Batch QR Physical Cards & POS-80 Thermal Roll */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #printable-batch-modal,
+  #printable-batch-modal * {
+    visibility: visible;
+  }
+
+  #printable-batch-modal {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Layout A4 8 cards per page (2 columns x 4 rows) */
+  .a4-grid-print {
+    display: grid !important;
+    grid-template-columns: repeat(2, 85mm) !important;
+    gap: 6mm 4mm !important;
+    justify-content: center !important;
+    padding: 8mm !important;
+    page-break-after: always;
+  }
+
+  .cr80-card-print {
+    width: 85mm !important;
+    min-height: 54mm !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid !important;
+    border: 2px solid #1e3a8a !important;
+    border-radius: 4mm !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Layout POS-80mm thermal roll print */
+  .pos80-roll-print {
+    width: 80mm !important;
+    margin: 0 auto !important;
+    padding: 2mm !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+  }
+
+  .pos80-card-item {
+    width: 76mm !important;
+    margin: 0 auto 6mm auto !important;
+    page-break-inside: avoid !important;
+    border: 2px solid #000000 !important;
+    padding: 3mm !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* Real Welfare Directory Split Layout & Leaflet Fixes */
+.welfare-directory-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (min-width: 992px) {
+  .welfare-directory-split {
+    grid-template-columns: minmax(0, 1.85fr) minmax(0, 1.15fr);
+  }
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 10px !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 4px !important;
+}
+
+.leaflet-popup-content {
+  margin: 8px 10px !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-container {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+

@@ -1,0 +1,38 @@
+{
+  "name": "buoc-tiep-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BƯỚC TIẾP - Nền tảng hỗ trợ chuyển tiếp, kết nối dịch vụ & xây dựng lộ trình ổn định cuộc sống cho người lao động đường phố và người cơ nhỡ - UNESCO Youth Hackathon 2026",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=packages/api",
+    "dev:all": "concurrently \"npm run dev:api\" \"npm run dev:web\" \"npm run dev:app\"",
+    "dev:api": "npm run dev --workspace=packages/api",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:app": "npm run dev --workspace=apps/zalo",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present && tsc -p tests",
+    "test": "vitest run",
+    "lint": "npm run lint --workspaces --if-present",
+    "db:generate": "npm run db:generate --workspace=packages/database",
+    "db:migrate:local": "npm run db:migrate:local --workspace=packages/database",
+    "db:seed:local": "npm run db:seed:local --workspace=packages/database",
+    "db:migrate:prod": "npm run db:migrate:prod --workspace=packages/database",
+    "db:seed:directory:local": "npm run db:seed:directory:local --workspace=packages/database",
+    "db:seed:directory:remote": "npm run db:seed:directory:remote --workspace=packages/database",
+    "deploy:zalo": "npm run deploy:testing --workspace=apps/zalo"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.4.5",
+    "vite": "^8.2.1",
+    "vitest": "^5.0.2",
+    "wrangler": "^4.123.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

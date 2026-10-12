@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "../node_modules/@types",
+      "../packages/api/node_modules"
+    ],
+    "types": [
+      "node",
+      "@cloudflare/workers-types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@buoc-tiep/shared": [
+        "../packages/shared/src/index.ts"
+      ],
+      "@buoc-tiep/database": [
+        "../packages/database/src/index.ts"
+      ],
+      "@web/lib/*": [
+        "../apps/web/src/lib/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}

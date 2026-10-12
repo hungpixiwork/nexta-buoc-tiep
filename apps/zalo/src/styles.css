@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+/*
+ * NEXTA — "Calm Progress". Token ngữ nghĩa duy nhất cho Mini App; page không dùng hex trực tiếp.
+ * Tỉ lệ dùng màu: ~70% nền trắng/ice · 20% slate · 7% xanh · 2% mint · 1% bơ.
+ * Tương phản chữ ≥ 7:1 (WCAG AAA) — kiểm tra tự động ở tests/zalo/contrast.test.ts.
+ */
+@theme {
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Xanh = hành động · tiến trình · định hướng */
+  --color-primary: #1e4bd2; /* màu chính kiểu ZaUI: chữ nhấn, icon, nút (trắng trên nền 7,0:1) */
+  --color-primary-gradient: #2b6ce0; /* đầu sáng của gradient nút/nút + */
+  --color-highlight: rgb(96 165 250 / 0.14); /* nền nhấn nhạt */
+  --color-background: #f2f8ff; /* nền trang */
+  --color-disabled: #475569; /* chữ phụ (giữ ≥ 7:1) */
+  --color-sky: #60a5fa; /* xanh pastel brand: thanh tiến trình, chấm bước */
+  --color-primary-strong: #1e4bd2; /* nền nút chính (chữ trắng 7,0:1) */
+  --color-primary-ink: #1e40af; /* chữ/link xanh trên nền sáng (≥ 8:1) */
+  --color-primary-soft: rgb(96 165 250 / 0.12);
+
+  /* Mint = hoàn thành · ổn định · đã xác minh */
+  --color-success: #a7f3d0;
+  --color-success-soft: rgb(167 243 208 / 0.18);
+  --color-success-ink: #065f46;
+
+  /* Bơ = nhắc hẹn · cột mốc · cơ hội */
+  --color-accent: #fcd34d;
+  --color-accent-soft: rgb(252 211 77 / 0.16);
+  --color-accent-ink: #78350f;
+
+  /* Slate = cấu trúc và nội dung (không dùng màu đen tuyệt đối) */
+  --color-fg: #334155;
+  --color-fg-2: #475569;
+
+  /* Ice sky = không gian thở */
+  --color-canvas: #f8fcff;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f0f9ff;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+
+  /* Đỏ chỉ cho lỗi thật, cấp cứu, nguy hiểm */
+  --color-danger: #991b1b;
+  --color-danger-soft: #fef2f2;
+  --color-danger-line: #fecaca;
+
+  --spacing-st: var(--safe-top);
+  --spacing-sb: var(--safe-bottom);
+
+  /* Thang chữ ZaUI */
+  --text-4xs: 10px;
+  --text-4xs--line-height: 14px;
+  --text-3xs: 11px;
+  --text-3xs--line-height: 16px;
+  --text-2xs: 12px;
+  --text-2xs--line-height: 16px;
+  --text-xs: 13px;
+  --text-xs--line-height: 18px;
+  --text-sm: 14px;
+  --text-sm--line-height: 18px;
+  --text-base: 15px;
+  --text-base--line-height: 20px;
+  --text-lg: 16px;
+  --text-lg--line-height: 22px;
+  --text-xl: 18px;
+  --text-xl--line-height: 24px;
+
+  --radius-card: 18px;
+  --radius-control: 12px;
+  --shadow-soft: 0 1px 2px rgb(51 65 85 / 0.05);
+  --shadow-lift: 0 4px 14px -6px rgb(51 65 85 / 0.12);
+
+  /* Thang chữ: tiêu đề trang 24 · mục 20 · card 16 · nội dung 15 · phụ 14 · chú thích 12 */
+  --text-display: 1.5rem;
+  --text-display--line-height: 1.25;
+  --text-section: 1.25rem;
+  --text-section--line-height: 1.35;
+  --text-card: 1rem;
+  --text-card--line-height: 1.4;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.55;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.4;
+
+  --ease-calm: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --animate-enter: enter 200ms var(--ease-calm) both;
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.55;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .zaui-page {
+    background: var(--color-canvas);
+  }
+  :focus-visible {
+    outline: 3px solid rgb(96 165 250 / 0.55);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      transition-duration: 1ms !important;
+    }
+  }
+}
+
+/* zmp-ui BottomNavigation theo token NEXTA. */
+/* Biến kiểu ZaUI (zaui-doctor) — dùng trong SVG icon và zmp-ui. */
+:root {
+  --primary: #1e4bd2;
+  --primary-gradient: #2b6ce0;
+  --highlight: rgb(96 165 250 / 0.14);
+  --background: #f2f8ff;
+  --disabled: #475569;
+  --safe-top: var(--zaui-safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --safe-bottom: max(8px, var(--zaui-safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
+  --zaui-light-body-background-color: var(--background);
+  --zaui-light-input-border-color: rgba(51, 65, 85, 0.14);
+  --zaui-light-input-hover-border-color: var(--primary);
+  --zaui-light-option-selected-color: var(--primary);
+  --zaui-light-radio-checked-background: var(--primary);
+}
+.zaui-sheet-content {
+  max-height: calc(100vh - 200px);
+}
+
+:root {
+  --zaui-light-bottom-navigation-divider-color: var(--color-line);
+  --zaui-light-bottom-navigation-color: var(--color-fg-2);
+  --zaui-light-bottom-navigation-active-color: var(--color-primary-ink);
+  --zaui-light-bottom-navigation-background-color: var(--color-surface);
+}

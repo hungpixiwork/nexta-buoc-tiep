@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "712a5a87-278f-44dd-b1e6-14cdad39fa03"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.hungpixi.buoctiepmonorepo",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.hungpixi.buoctiepmonorepo"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "buoc-tiep-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "account_id": "5fdd1d1433519df6429d7418d43fff9a",
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "buoc-tiep-db",
+      "database_id": "0c140f01-30b6-4763-936d-9ab1334e8269",
+      "migrations_dir": "../database/migrations"
+    }
+  ],
+
+  "kv_namespaces": [
+    {
+      "binding": "CACHE_KV",
+      "id": "d2a5863083824b99874ed8dcb02448f1"
+    }
+  ],
+
+  "r2_buckets": [
+    {
+      "binding": "STORAGE_R2",
+      "bucket_name": "buoc-tiep-files"
+    }
+  ],
+
+  "vectorize": [
+    {
+      "binding": "VECTOR_INDEX",
+      "index_name": "livelihood-embeddings"
+    }
+  ],
+
+  "ai": {
+    "binding": "AI"
+  },
+
+  "observability": {
+    "enabled": true
+  },
+
+  // ⚠️ CHƯA PROVISION: Durable Objects namespace "PARTNER_INBOX_DO" (class PartnerInboxRoom,
+  // exported from src/index.ts) chưa được kích hoạt trên Cloudflare. Cần chạy `wrangler deploy`
+  // (deploy lần đầu sẽ tự động chạy migration `new_sqlite_classes` bên dưới để tạo namespace)
+  // trước khi endpoint GET /api/realtime/partner-inbox/:organisationId hoạt động thật.
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "PARTNER_INBOX_DO",
+        "class_name": "PartnerInboxRoom"
+      }
+    ]
+  },
+
+  "migrations": [
+    {
+      "tag": "v1-partner-inbox-room",
+      "new_sqlite_classes": ["PartnerInboxRoom"]
+    }
+  ],
+
+  "vars": {
+    "ENVIRONMENT": "production",
+    "JWT_SECRET": "buoc-tiep-jwt-secret-key-unesco-2026-production-v1",
+    "PII_ENCRYPTION_KEY": "buoc-tiep-pii-aes-256-gcm-master-key-2026",
+    "CRON_SECRET": "buoc-tiep-cron-sla-secret-2026"
+  }
+}

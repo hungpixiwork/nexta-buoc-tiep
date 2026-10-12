@@ -1,0 +1,20 @@
+{
+  "app": {
+    "title": "Bước Tiếp",
+    "textColor": "black",
+    "headerColor": "#FFFFFF",
+    "leftButton": "back",
+    "statusBar": "normal",
+    "actionBarHidden": true,
+    "hideAndroidBottomNavigationBar": false,
+    "hideIOSSafeAreaBottom": false,
+    "selfControlLoading": false
+  },
+  "listCSS": [],
+  "listSyncJS": [],
+  "listAsyncJS": [],
+  "template": {
+    "name": "buoc-tiep",
+    "primaryColor": "#075985"
+  }
+}
