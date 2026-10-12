@@ -11,6 +11,12 @@
 [![WCAG AAA](https://img.shields.io/badge/Accessibility-WCAG%20AAA%20Light%20Mode-0052CC.svg)](./packages/shared/src/theme.ts)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
+<br/>
+
+<div align="center">
+  <img src="apps/web/public/illustrations/hero-nexta.jpg" alt="NEXTA Bước Tiếp Hero Illustration" width="920" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+</div>
+
 ---
 
 ## 1. What is NEXTA?
